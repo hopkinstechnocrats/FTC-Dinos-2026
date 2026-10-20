@@ -2,59 +2,54 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-// The @Autonomous annotation registers this code on the Driver Station menu
-@Autonomous(name="AOM_Aviva", group="Robot")
+/*
+ * Autonomous OpMode: drive out of the start zone and score the drive points.
+ *
+ * All driving goes through DriveTrain, which is shared with BOM_Aviva, so this OpMode uses the same
+ * motor names and the same left/right direction convention as teleop. The maneuver timings come
+ * from RobotConstants along with every other tunable number on the robot.
+ *
+ * The spin leg is present but switched off via RobotConstants.AUTO_SPIN_ENABLED - the current
+ * drive-points path needs no turn. It is ready for the launch path, which does.
+ *
+ * Timings are time based, so they drift with battery voltage and load. Re-measure them against the
+ * actual field marks before trusting them in a match.
+ */
+@Autonomous(name = "AOM_Aviva", group = "Aviva")
 public class AOM_Aviva extends LinearOpMode {
 
-    // Declare hardware variables (Adjust these to match your robot configuration)
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
-
-    private ElapsedTime runtime = new ElapsedTime();
+    private DriveTrain driveTrain;
 
     @Override
     public void runOpMode() {
-        // Send telemetry to the Driver Station
+        // Looks up the drive motors and applies the shared direction and braking configuration.
+        driveTrain = new DriveTrain(this);
+
         telemetry.addData("Status", "Initialized");
+        telemetry.addData("Path", "Waiting for START");
         telemetry.update();
 
-        // Initialize the hardware variables.
-        // The strings here must match the names configured on your Robot Controller / Driver Hub
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
-
-        // Most robots need one motor reversed to drive forward cleanly
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
-
-        // Wait for the game to start (driver presses PLAY)
+        // Wait for the game to start (driver presses START)
         waitForStart();
-        runtime.reset();
 
-        // Step 1: Drive Forward for 1.5 seconds
-        telemetry.addData("Path", "Driving Forward");
+        // Each maneuver powers the wheels off when it finishes, and ends early if the driver presses
+        // STOP or the match clock expires.
+
+        // Drive forward out of the start zone.
+        telemetry.addLine("Driving forward");
         telemetry.update();
+        driveTrain.driveFor(RobotConstants.DRIVE_POWER, RobotConstants.AUTO_DRIVE_SECONDS);
 
-        leftDrive.setPower(0.5);
-        rightDrive.setPower(0.5);
-        sleep(700); // Time in milliseconds
+        // Spin right to face the element. Off for the current game; see AUTO_SPIN_ENABLED.
+        if (RobotConstants.AUTO_SPIN_ENABLED) {
+            telemetry.addLine("Spinning right");
+            telemetry.update();
+            driveTrain.spinFor(RobotConstants.TURN_POWER, RobotConstants.AUTO_TURN_SECONDS);
+        }
 
-        // Step 2: Spin/Turn Right for 0.8 seconds
-        telemetry.addData("Path", "Turning Right");
+        // Complete - DriveTrain has already braked both wheels to a stop.
+        telemetry.addLine("Complete");
         telemetry.update();
-
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
-        sleep(0);
-
-        // Step 3: Stop the robot
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
-
-        leftDrive.setPower(0.0);
-        rightDrive.setPower(0.0);
     }
 }
