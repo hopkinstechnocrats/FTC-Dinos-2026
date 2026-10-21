@@ -79,7 +79,7 @@ public final class RobotConstants {
     // --------------------------------------------------------------------------------------------
 
     /** How long to drive forward out of the start zone, in seconds. */
-    public static final double AUTO_DRIVE_SECONDS = 1.5;
+    public static final double AUTO_DRIVE_SECONDS = 0.75;
 
     /** How long to spin right, in seconds. Only used when AUTO_SPIN_ENABLED is true. */
     public static final double AUTO_TURN_SECONDS = 0.576;
