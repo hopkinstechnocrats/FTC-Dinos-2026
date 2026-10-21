@@ -16,8 +16,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
  * Timings are time based, so they drift with battery voltage and load. Re-measure them against the
  * actual field marks before trusting them in a match.
  */
-@Autonomous(name = "AOM_Aviva", group = "Aviva")
-public class AOM_Aviva extends LinearOpMode {
+@Autonomous(name = "Corner_Start", group = "Aviva")
+public class Corner_Start extends LinearOpMode {
 
     private DriveTrain driveTrain;
 

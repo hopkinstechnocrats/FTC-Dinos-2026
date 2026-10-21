@@ -52,6 +52,8 @@ public class DriveTrain {
         leftDrive.setDirection(RobotConstants.LEFT_DIRECTION);
         rightDrive.setDirection(RobotConstants.RIGHT_DIRECTION);
 
+        leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         // BRAKE shorts the terminals so each maneuver decelerates using the motor's own back-EMF
         // instead of rolling on friction. Configured in RobotConstants.
         leftDrive.setZeroPowerBehavior(RobotConstants.ZERO_POWER_BEHAVIOR);

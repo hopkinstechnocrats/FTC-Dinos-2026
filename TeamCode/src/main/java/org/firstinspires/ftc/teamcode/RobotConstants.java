@@ -82,8 +82,8 @@ public final class RobotConstants {
     public static final double AUTO_DRIVE_SECONDS = 1.5;
 
     /** How long to spin right, in seconds. Only used when AUTO_SPIN_ENABLED is true. */
-    public static final double AUTO_TURN_SECONDS = 0.8;
-
+    public static final double AUTO_TURN_SECONDS = 0.576;
+    public static final double DRIVE_AWAY_FROM_WALL_Seconds = 0.8;
     /**
      * Whether the autonomous path performs the spin leg.
      * <p>
