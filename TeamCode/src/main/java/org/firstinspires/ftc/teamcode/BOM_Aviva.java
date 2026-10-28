@@ -32,7 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
+import com.qualcomm.robotcore.hardware.Servo;
 
 /*
  * Basic Teleop for a two wheeled robot: POV (arcade) drive on the left and right sticks.
@@ -52,10 +52,19 @@ public class BOM_Aviva extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     private DriveTrain driveTrain;
 
+    // 1. Declare the Servo object
+    private Servo FlowerPicker;
+
     @Override
     public void runOpMode() {
         // Looks up the drive motors and applies the shared direction convention.
         driveTrain = new DriveTrain(this);
+
+        // 2. Map the servo to the hardware configuration name (e.g., "test_servo")
+        FlowerPicker = hardwareMap.get(Servo.class, "FlowerPicker");
+
+        // 3. Optional: Set an initial fallback or starting position (0.5 is center)
+        FlowerPicker.setPosition(0.5);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -66,6 +75,22 @@ public class BOM_Aviva extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+
+            // 4. Control positions using Gamepad 1 buttons
+            // Servo ranges are fractional values strictly between 0.0 and 1.0
+            if (gamepad1.y) {
+                // Move to minimum position (typically 0 degrees)
+               FlowerPicker.setPosition(1.0);
+            }
+            else if (gamepad1.a) {
+                // Move to center position (typically 90 degrees)
+                FlowerPicker.setPosition(0.5);
+            }
+
+            else  {
+                // Move to maximum position (typically 180 degrees)
+                FlowerPicker.setPosition(1.0);
+            }
 
             // Choose to drive using either Tank Mode, or POV Mode
             // Comment out the method that's not used.  The default below is POV.
