@@ -80,17 +80,13 @@ public class BOM_Aviva extends LinearOpMode {
             // Servo ranges are fractional values strictly between 0.0 and 1.0
             if (gamepad1.y) {
                 // Move to minimum position (typically 0 degrees)
-               FlowerPicker.setPosition(1.0);
+               FlowerPicker.setPosition(0.55);
             }
             else if (gamepad1.a) {
                 // Move to center position (typically 90 degrees)
-                FlowerPicker.setPosition(0.5);
+                FlowerPicker.setPosition(0.167);
             }
 
-            else  {
-                // Move to maximum position (typically 180 degrees)
-                FlowerPicker.setPosition(1.0);
-            }
 
             // Choose to drive using either Tank Mode, or POV Mode
             // Comment out the method that's not used.  The default below is POV.
