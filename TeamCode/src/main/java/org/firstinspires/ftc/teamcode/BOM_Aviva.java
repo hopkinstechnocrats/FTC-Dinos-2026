@@ -87,8 +87,9 @@ public class BOM_Aviva extends LinearOpMode {
                 FlowerPicker.setPosition(0.167);
             }
 
-
-            driveTrain.SetMechTechSpeed(gamepad1.left_trigger,gamepad1.right_trigger);
+double launch = gamepad1.right_trigger;
+            double intake = gamepad1.left_trigger;
+            driveTrain.SetMechTechSpeed(launch,intake);
 
 
             // Choose to drive using either Tank Mode, or POV Mode
@@ -107,6 +108,7 @@ public class BOM_Aviva extends LinearOpMode {
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: %s", runtime);
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", driveTrain.getLeftPower(), driveTrain.getRightPower());
+            telemetry.addData("Mech", "launch (%.2f), intake (%.2f)", launch, intake);
             telemetry.update();
         }
 
