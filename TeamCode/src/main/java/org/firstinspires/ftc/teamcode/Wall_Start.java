@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 /*
  * Autonomous OpMode: drive out of the start zone and score the drive points.
  *
- * All driving goes through DriveTrain, which is shared with BOM_Aviva, so this OpMode uses the same
+ * All driving Driving forwardgoes through DriveTrain, which is shared with BOM_Aviva, so this OpMode uses the same
  * motor names and the same left/right direction convention as teleop. The maneuver timings come
  * from RobotConstants along with every other tunable number on the robot.
  *
@@ -40,6 +40,11 @@ public class Wall_Start extends LinearOpMode {
         telemetry.addLine("Driving forward");
         telemetry.update();
         driveTrain.driveFor(RobotConstants.TURN_POWER, RobotConstants.DRIVE_AWAY_FROM_WALL_Seconds);
+
+        // launch pre-load
+        telemetry.addLine("launching, intake");
+        telemetry.update();
+        driveTrain.launchFor(1, 1, 3/*sec*/);
 
         // Spin right to face the element. Off for the current game; see AUTO_SPIN_ENABLED.
 

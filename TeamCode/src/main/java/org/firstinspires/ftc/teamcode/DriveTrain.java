@@ -152,6 +152,17 @@ public class DriveTrain {
 
         stop();
     }
+    public void launchFor(double launchPower, double intakePower, double seconds) {
+        SetMechTechSpeed(intakePower, launchPower);
+        maneuverTimer.reset();
+
+        while (opMode.opModeIsActive() && maneuverTimer.seconds() < seconds) {
+            opMode.telemetry.addData("Maneuver", "%.2f s of %.2f s", maneuverTimer.seconds(), seconds);
+            opMode.telemetry.update();
+        }
+
+        SetMechTechSpeed(0,0);
+    }
 /*
     private void runTo(double leftPower, double rightPower, double distance) {
         leftDrive.setVelocity(lastLeftPower);
