@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -27,9 +27,12 @@ import com.qualcomm.robotcore.util.Range;
 public class DriveTrain {
 
     private final LinearOpMode opMode;
-    private final DcMotor leftDrive;
-    private final DcMotor rightDrive;
+    private final DcMotorEx leftDrive;
+    private final DcMotorEx rightDrive;
 
+    private final DcMotorEx launch;
+
+    private final DcMotorEx intake;
     /** Reused by every timed maneuver, so no maneuver allocates its own timer. */
     private final ElapsedTime maneuverTimer = new ElapsedTime();
 
@@ -46,18 +49,28 @@ public class DriveTrain {
         this.opMode = opMode;
 
         HardwareMap hardwareMap = opMode.hardwareMap;
-        leftDrive = hardwareMap.get(DcMotor.class, RobotConstants.LEFT_MOTOR_NAME);
-        rightDrive = hardwareMap.get(DcMotor.class, RobotConstants.RIGHT_MOTOR_NAME);
+        leftDrive = hardwareMap.get(DcMotorEx.class, RobotConstants.LEFT_MOTOR_NAME);
+        rightDrive = hardwareMap.get(DcMotorEx.class, RobotConstants.RIGHT_MOTOR_NAME);
+        intake = hardwareMap.get(DcMotorEx.class, RobotConstants.INTAKE_MOTOR_NAME);
+        launch = hardwareMap.get(DcMotorEx.class, RobotConstants.LAUNCH_MOTOR_NAME);
+
 
         leftDrive.setDirection(RobotConstants.LEFT_DIRECTION);
         rightDrive.setDirection(RobotConstants.RIGHT_DIRECTION);
+        intake.setDirection(RobotConstants.SPIN_DIRECTION);
+        launch.setDirection(RobotConstants.SPIN_DIRECTION);
 
-        leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+
 
         // BRAKE shorts the terminals so each maneuver decelerates using the motor's own back-EMF
         // instead of rolling on friction. Configured in RobotConstants.
         leftDrive.setZeroPowerBehavior(RobotConstants.ZERO_POWER_BEHAVIOR);
         rightDrive.setZeroPowerBehavior(RobotConstants.ZERO_POWER_BEHAVIOR);
+
+        intake.setZeroPowerBehavior(RobotConstants.ZERO_POWER_BEHAVIOR);
+        launch.setZeroPowerBehavior(RobotConstants.ZERO_POWER_BEHAVIOR);
     }
 
     /**
@@ -139,6 +152,19 @@ public class DriveTrain {
 
         stop();
     }
+/*
+    private void runTo(double leftPower, double rightPower, double distance) {
+        leftDrive.setVelocity(lastLeftPower);
+        rightDrive.setVelocity(lastRightPower);
+        maneuverTimer.reset();
+
+        while (opMode.opModeIsActive() && maneuverTimer.seconds() < seconds) {
+            opMode.telemetry.addData("Maneuver", "%.2f s of %.2f s", maneuverTimer.seconds(), seconds);
+            opMode.telemetry.update();
+        }
+
+        stop();
+    }*/
 
     /** Sends powers to the wheels, clamped to the legal -1.0 to 1.0 range. */
     private void setPower(double leftPower, double rightPower) {
@@ -147,4 +173,21 @@ public class DriveTrain {
         leftDrive.setPower(lastLeftPower);
         rightDrive.setPower(lastRightPower);
     }
+
+
+    public void SetMechTechSpeed (double LaunchPower,double IntakePower){
+        launch.setVelocity(LaunchPower);
+        intake.setVelocity(IntakePower);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+

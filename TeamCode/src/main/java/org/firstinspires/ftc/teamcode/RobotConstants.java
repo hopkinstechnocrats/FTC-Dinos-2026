@@ -25,6 +25,8 @@ public final class RobotConstants {
 
     public static final String LEFT_MOTOR_NAME = "left_drive";
     public static final String RIGHT_MOTOR_NAME = "right_drive";
+    public static final String INTAKE_MOTOR_NAME = "intake";
+    public static final String LAUNCH_MOTOR_NAME = "launch";
 
     // --------------------------------------------------------------------------------------------
     // Drive base configuration
@@ -39,6 +41,7 @@ public final class RobotConstants {
      */
     public static final DcMotorSimple.Direction LEFT_DIRECTION = DcMotorSimple.Direction.FORWARD;
     public static final DcMotorSimple.Direction RIGHT_DIRECTION = DcMotorSimple.Direction.REVERSE;
+    public static final DcMotorSimple.Direction SPIN_DIRECTION = DcMotorSimple.Direction.FORWARD;
 
     /**
      * What the drive motors do when power is removed.

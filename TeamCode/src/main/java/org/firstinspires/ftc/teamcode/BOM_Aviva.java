@@ -82,10 +82,13 @@ public class BOM_Aviva extends LinearOpMode {
                 // Move to minimum position (typically 0 degrees)
                FlowerPicker.setPosition(0.55);
             }
-            else if (gamepad1.a) {
+            else if (gamepad1.b) {
                 // Move to center position (typically 90 degrees)
                 FlowerPicker.setPosition(0.167);
             }
+
+
+            driveTrain.SetMechTechSpeed(gamepad1.left_trigger,gamepad1.right_trigger);
 
 
             // Choose to drive using either Tank Mode, or POV Mode
