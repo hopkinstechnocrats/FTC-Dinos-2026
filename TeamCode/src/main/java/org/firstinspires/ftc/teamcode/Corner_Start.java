@@ -39,14 +39,7 @@ public class Corner_Start extends LinearOpMode {
         // Drive forward out of the start zone.
         telemetry.addLine("Driving forward");
         telemetry.update();
-        driveTrain.driveFor(RobotConstants.DRIVE_POWER, RobotConstants.AUTO_DRIVE_SECONDS);
-
-        // Spin right to face the element. Off for the current game; see AUTO_SPIN_ENABLED.
-        if (RobotConstants.AUTO_SPIN_ENABLED) {
-            telemetry.addLine("Spinning right");
-            telemetry.update();
-            driveTrain.spinFor(RobotConstants.TURN_POWER, RobotConstants.AUTO_TURN_SECONDS);
-        }
+        driveTrain.runTo(0.5,6);
 
         // Complete - DriveTrain has already braked both wheels to a stop.
         telemetry.addLine("Complete");

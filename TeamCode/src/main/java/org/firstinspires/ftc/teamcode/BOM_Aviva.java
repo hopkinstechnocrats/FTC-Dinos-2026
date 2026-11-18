@@ -54,6 +54,7 @@ public class BOM_Aviva extends LinearOpMode {
 
     // 1. Declare the Servo object
     private Servo FlowerPicker;
+    private Servo Feed;
 
     @Override
     public void runOpMode() {
@@ -62,9 +63,11 @@ public class BOM_Aviva extends LinearOpMode {
 
         // 2. Map the servo to the hardware configuration name (e.g., "test_servo")
         FlowerPicker = hardwareMap.get(Servo.class, "FlowerPicker");
+        Feed = hardwareMap.get(Servo.class, "Feed");
 
         // 3. Optional: Set an initial fallback or starting position (0.5 is center)
         FlowerPicker.setPosition(0.5);
+        Feed.setPosition(0.5);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -86,8 +89,15 @@ public class BOM_Aviva extends LinearOpMode {
                 // Move to center position (typically 90 degrees)
                 FlowerPicker.setPosition(0.167);
             }
+            if (gamepad1.a) {
+                Feed.setPosition(1.0);
+            } else if (gamepad1.x) {
+                Feed.setPosition(0.0);
+            } else {
+                Feed.setPosition(0.5);
+            }
 
-double launch = gamepad1.right_trigger;
+            double launch = gamepad1.right_trigger;
             double intake = gamepad1.left_trigger;
             driveTrain.SetMechTechSpeed(launch,intake);
 

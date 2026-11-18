@@ -163,19 +163,24 @@ public class DriveTrain {
 
         SetMechTechSpeed(0,0);
     }
-/*
-    private void runTo(double leftPower, double rightPower, double distance) {
-        leftDrive.setVelocity(lastLeftPower);
-        rightDrive.setVelocity(lastRightPower);
-        maneuverTimer.reset();
 
-        while (opMode.opModeIsActive() && maneuverTimer.seconds() < seconds) {
-            opMode.telemetry.addData("Maneuver", "%.2f s of %.2f s", maneuverTimer.seconds(), seconds);
+    public void runTo(double velocity, double target_distance_in) {
+        leftDrive.setVelocity(velocity);
+        rightDrive.setVelocity(velocity);
+
+        double actual_distance_in = 0;
+        double starting_enc = leftDrive.getCurrentPosition();
+
+        while (opMode.opModeIsActive() && actual_distance_in < target_distance_in) {
+
+            double dist_enc = leftDrive.getCurrentPosition() - starting_enc;
+            actual_distance_in = dist_enc * (1/28/* Counts/rev */) * (1/20 /* Gear Ratio */) * 3.625 /* Wheel Dia inches */ * Math.PI;
+            opMode.telemetry.addData("Maneuver", "%.2f in of %.2f in", actual_distance_in, target_distance_in);
             opMode.telemetry.update();
         }
 
         stop();
-    }*/
+    }
 
     /** Sends powers to the wheels, clamped to the legal -1.0 to 1.0 range. */
     private void setPower(double leftPower, double rightPower) {
@@ -187,8 +192,8 @@ public class DriveTrain {
 
 
     public void SetMechTechSpeed (double LaunchPower,double IntakePower){
-        launch.setVelocity(LaunchPower);
-        intake.setVelocity(IntakePower);
+        launch.setPower(LaunchPower);
+        intake.setPower(IntakePower);
     }
 }
 
