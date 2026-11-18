@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 /*
  * Autonomous OpMode: drive out of the start zone and score the drive points.
  *
- * All driving Driving forwardgoes through DriveTrain, which is shared with BOM_Aviva, so this OpMode uses the same
+ * All Driving forward goes through DriveTrain, which is shared with BOM_Aviva, so this OpMode uses the same
  * motor names and the same left/right direction convention as teleop. The maneuver timings come
  * from RobotConstants along with every other tunable number on the robot.
  *

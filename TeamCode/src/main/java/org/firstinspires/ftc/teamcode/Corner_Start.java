@@ -39,7 +39,7 @@ public class Corner_Start extends LinearOpMode {
         // Drive forward out of the start zone.
         telemetry.addLine("Driving forward");
         telemetry.update();
-        driveTrain.runTo(0.5,6);
+        driveTrain.runTo(1.5,12);
 
         // Complete - DriveTrain has already braked both wheels to a stop.
         telemetry.addLine("Complete");
